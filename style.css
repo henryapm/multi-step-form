@@ -3,19 +3,16 @@
   padding: 0;
 }
 
-body{
-}
-
 main{
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .container{
   width: 940px;
   max-height: 600px;
-  position: relative;
 }
 
 .none{
@@ -23,17 +20,28 @@ main{
 }
 
 aside{
-  /* background-image: url('assets/images/bg-sidebar-desktop.svg'); */
   background-repeat: no-repeat;
   background-size: cover;
-  /* display: block; */
-  padding: 1rem;
-  /* position: absolute; */
+  padding: 16px;
+  position: relative;
 }
 
 ul {
   list-style: none;
   position: absolute;
+  top: 56px;
+  left: 48px;
+}
+
+ul li span{
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 50% 50%;
+
+}
+
+ul li{
+  margin-bottom: 32px;
 }
 
 img {
