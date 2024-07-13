@@ -22,25 +22,25 @@
             <!-- Sidebar start -->
             <img src="./assets/images/bg-sidebar-desktop.svg" alt="place holder image"/>
             <ol>
-              <li class="selected">
+              <li :class="{ selected : step === 0 }">
                 <div class="step">
                   <span class="step-number">Step 1</span> <br />
                   <span class="step-name">Your info</span>
                 </div>
               </li>
-              <li>
+              <li :class="{ selected : step === 1 }">
                 <div class="step">
                   <span class="step-number">Step 2</span> <br />
                   <span class="step-name">Select plan</span>
                 </div>
               </li>
-              <li>
+              <li :class="{ selected : step === 2 }">
                 <div class="step">
                   <span class="step-number">Step 3</span> <br />
                   <span class="step-name">Add-ons</span>
                 </div>
               </li>
-              <li>
+              <li :class="{ selected : step === 3 }">
                 <div class="step">
                   <span class="step-number">Step 4</span> <br />
                   <span class="step-name">Summary</span>
