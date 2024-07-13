@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+:root{
+  --marine-blue: hsl(213, 96%, 18%);
+  --purplish-blue: hsl(243, 100%, 62%);
+  --pastel-blue: hsl(228, 100%, 84%);
+  --light-blue: hsl(206, 94%, 87%);
+  --straberry-red: hsl(354, 84%, 57%);
+  --Light-gray: hsl(229, 24%, 87%);
+  --Cool-gray: hsl(231, 11%, 63%);
+
+}
 * {
   font-family: "Ubuntu", sans-serif;
   margin: 0;
@@ -17,6 +27,7 @@ main{
   width: 940px;
   max-height: 600px;
   display: flex;
+  justify-content: space-around;
 }
 
 .none{
@@ -30,13 +41,42 @@ aside{
   position: relative;
 }
 
-.step{
+section.step{
   padding: 16px;
+  margin-top: 3rem;
 }
 
 .personal-info {
   display: flex;
   flex-direction: column;
+}
+
+.description{
+  margin-bottom: 40px;
+}
+
+.personal-info .title{
+  color: var(--marine-blue);
+  font-size: 40px;
+  margin-bottom: 11px;
+}
+
+.personal-info .p-description{
+  color: var(--Cool-gray);
+  font-size: 16px;
+}
+
+label{
+  margin-bottom: 8px;
+  color: var(--marine-blue);
+  font-size: 12px;
+}
+
+.personal-info input{
+  padding: 10px;
+  border: 0.5px solid var(--Light-gray);
+  border-radius: 6px;
+  margin-bottom: 24px;
 }
 
 ol {
@@ -64,8 +104,8 @@ ol > li::before {
 }
 
 ol li.selected::before {
-  background-color: lightblue;
-  color: navy;
+  background-color: var(--light-blue);
+  color: var(--marine-blue);
   font-weight: bold;
 }
 
