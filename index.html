@@ -106,7 +106,7 @@
             Total (per month/year) Go Back Confirm
             <!-- Step 4 end -->
           </section>
-          <div class="buttons flex-end">
+          <div class="buttons flex-end" :class="{ spaceBetween: step > 0 }" :class="{ spaceBetween: step < 4 }">
             <button v-if="step > 0" @click="step--" class="go-back">Go Back</button>
             <button @click="step++" class="next-step">Next Step</button>
           </div>
