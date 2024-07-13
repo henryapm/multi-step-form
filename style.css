@@ -16,6 +16,7 @@ main{
 .container{
   width: 940px;
   max-height: 600px;
+  display: flex;
 }
 
 .none{
@@ -27,6 +28,15 @@ aside{
   background-size: cover;
   padding: 16px;
   position: relative;
+}
+
+.step{
+  padding: 16px;
+}
+
+.personal-info {
+  display: flex;
+  flex-direction: column;
 }
 
 ol {
