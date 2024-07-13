@@ -17,14 +17,10 @@
   <body>
     <main>
       <section class="container">
-        <section>
+        <section class="navigation">
           <aside>
             <!-- Sidebar start -->
-            <img
-              src="./assets/images/bg-sidebar-desktop.svg"
-              alt=""
-              srcset=""
-            />
+            <img src="./assets/images/bg-sidebar-desktop.svg" alt="place holder image"/>
             <ol>
               <li class="selected">
                 <div class="step">
@@ -55,7 +51,7 @@
           </aside>
         </section>
         <!-- Step 1 start -->
-        <section class="step">
+        <section class="steps" id="personal">
           <section class="personal-info">
             <div class="description">
               <h1 class="title">Personal info</h1>
@@ -68,10 +64,13 @@
             <label for="phone">Phone Number</label>
             <input type="text" name="phone" id="phone" placeholder="e.g. +1 234 567 890 ">
           </section>
-          <button>Next Step</button>
+          <!-- Step 1 end -->
+          <div class="buttons flex-end">
+            <button class="none go-back">Go Back</button>
+            <button class="next-step">Next Step</button>
+          </div>
         </section>
       </section>
-      <!-- Step 1 end -->
       <!-- Step 2 start -->
       <section class="none">
         Select your plan You have the option of monthly or yearly billing.
