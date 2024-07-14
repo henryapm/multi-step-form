@@ -1,7 +1,7 @@
 const app = Vue.createApp({
   data() {
     return{
-      step: 2,
+      step: 0,
     }
   },
   methods: {
