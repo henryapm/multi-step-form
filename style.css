@@ -183,8 +183,6 @@ label{
 }
 
 .card:hover{
-  /* border-color: var(--purplish-blue);
-  background-color: var(--magnolia); */
   cursor: pointer;
 }
 
