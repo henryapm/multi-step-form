@@ -196,7 +196,7 @@ label{
   display: none;
 }
 
-.radio-plan:checked + .card{
+.radio-plan:checked + .card-input{
   border-color: var(--purplish-blue);
   background-color: var(--magnolia);
 }
