@@ -1,4 +1,10 @@
 app.component('form-display', {
+  props: {
+    step: {
+      type: Number,
+      required: true
+    }
+  },
   template:
   /*html*/
   `
@@ -105,16 +111,15 @@ app.component('form-display', {
         using our platform. If you ever need support, please feel free to email
         us at support@loremgaming.com.
       </section>
-      <section class="" :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
-        <button v-if="step > 0" @click="step--" class="go-back">Go Back</button>
-        <button @click="step++" class="next-step">Next Step</button>
+      <section :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
+        <button v-if="step > 0" @click="$emit('stepBy', -1)" class="go-back">Go Back</button>
+        <button @click="$emit('stepBy', 1)" class="next-step">Next Step</button>
       </section>
     </section>
   <!-- </form> -->
   <!-- Step 5 end -->`,
   data() {
     return{
-      step: 0,
       monthlyPlan: [
         { name: 'arcade', price: 9, img: './assets/images/icon-arcade.svg'},
         { name: 'advanced', price: 12, img: './assets/images/icon-advanced.svg' },
@@ -135,6 +140,9 @@ app.component('form-display', {
       } else{
         event.currentTarget.closest('.add-on').classList.remove("check-selected")
       }
+    },
+    nextStep(){
+      this.$emit('next-step')
     },
     onSubmit(){
 
