@@ -163,6 +163,7 @@ label{
 
 .cards h2, .add-on h2{
   font-size: 15px;
+  text-transform: capitalize;
 }
 
 .card .plan, .add-on .plan {
