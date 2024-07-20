@@ -8,12 +8,12 @@ app.component('subscription-plans', {
       <p class="p-description">You have the option of monthly or yearly billing.</p>
     </div>
     <section class="cards">
-      <template v-for="plan in (typeOfSubscription === 'monthly' ? monthlyPlan : yearlyPlan)">
+      <template v-for="plan in subscriptionPlan">
         <input type="radio" name="plan" :id="plan.name" class="radio-plan" />
         <label :for="plan.name" class="card card-input">
           <img :src="plan.img" alt="">
           <h2 class="plan">{{ plan.name }}</h2>
-          <h2 class="price">$ {{ plan.price }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
+          <h2 class="price">$ {{ typeOfSubscription === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
         </label>
       </template>
     </section>
@@ -29,15 +29,10 @@ app.component('subscription-plans', {
   `,
   data(){
     return {
-      monthlyPlan: [
-        { name: 'arcade', price: 9, img: './assets/images/icon-arcade.svg'},
-        { name: 'advanced', price: 12, img: './assets/images/icon-advanced.svg' },
-        { name: 'pro', price: 15, img: './assets/images/icon-pro.svg' }
-      ],
-      yearlyPlan: [
-        { name: 'arcade', price: 90, img: './assets/images/icon-arcade.svg'},
-        { name: 'advanced', price: 120, img: './assets/images/icon-advanced.svg' },
-        { name: 'pro', price: 150, img: './assets/images/icon-pro.svg' }
+      subscriptionPlan: [
+        { name: 'arcade', monthlyPrice: 9, yearlyPrice: 90, img: './assets/images/icon-arcade.svg'},
+        { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg' },
+        { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg' }
       ],
       typeOfSubscription: 'monthly'
     }
