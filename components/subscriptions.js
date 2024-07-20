@@ -9,7 +9,7 @@ app.component('subscription-plans', {
     </div>
     <section class="cards">
       <template v-for="plan in subscriptionPlan">
-        <input type="radio" name="plan" :id="plan.name" class="radio-plan" />
+        <input type="radio" name="plan" :id="plan.name" :value="plan.name + '(' + typeOfSubscription + ')'" class="radio-plan" v-model="subSelected" />
         <label :for="plan.name" class="card card-input">
           <img :src="plan.img" alt="">
           <h2 class="plan">{{ plan.name }}</h2>
@@ -19,7 +19,7 @@ app.component('subscription-plans', {
     </section>
     <div class="subscription flex-row">
       <div class="monthly">Monthly</div> 
-      <label class="switch" for="type">
+      <label class="switch" for="type" @click=reset()>
         <input type="checkbox" id="type" v-model="typeOfSubscription" true-value="yearly" false-value="monthly">
         <span class="slider round"></span>
       </label>
@@ -34,7 +34,18 @@ app.component('subscription-plans', {
         { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg' },
         { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg' }
       ],
-      typeOfSubscription: 'monthly'
+      typeOfSubscription: 'monthly',
+      subSelected: ''
+    }
+  }, 
+  methods: {
+    reset() {
+      console.log('resetting')
+      this.subSelected = ''
+      const radios = document.querySelectorAll("input[type='radio']")
+      radios.forEach(radio => {
+        radio.checked = false
+      })
     }
   }
 })
