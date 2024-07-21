@@ -77,23 +77,6 @@ section.step {
   font-size: 16px;
 }
 
-/* FLEX */
-
-.flex{
-  display: flex;
-}
-
-.flex-column{
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-row{
-  display: flex;
-  flex-direction: row;
-}
-
-
 /* FORMS */
 
 label{
@@ -129,18 +112,6 @@ label{
   cursor: pointer;
 }
 
-/* FLEX CLASSES */
-.flex-end{
-  justify-content: flex-end;
-}
-
-.spaceBetween{
-  justify-content: space-between;
-}
-.spaceAround{
-  justify-content: space-around;
-}
-
 .next-step{
   color: white;
   background-color: var(--marine-blue);
@@ -152,6 +123,32 @@ label{
   cursor: pointer;
 }
 
+/* FLEX CLASSES */
+.flex{
+  display: flex;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-end{
+  justify-content: flex-end;
+}
+
+.spaceBetween{
+  justify-content: space-between;
+}
+.spaceAround{
+  justify-content: space-around;
+}
+
 /* PLAN || CARDS  */
 
 .cards {
@@ -161,12 +158,12 @@ label{
   justify-content: space-between;
 }
 
-.cards h2, .add-on h2{
+.cards h2, .add-on h2, .plan-selected h2 {
   font-size: 15px;
   text-transform: capitalize;
 }
 
-.card .plan, .add-on .plan {
+.card .plan, .add-on .plan, .plan-selected .plan{
   color: var(--marine-blue);
 }
 
@@ -246,6 +243,8 @@ input[type='checkbox']{
 label.add-on{
   cursor: pointer;
 }
+
+
 
 /* ASIDE */
 

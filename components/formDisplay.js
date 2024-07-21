@@ -19,7 +19,15 @@ app.component('form-display', {
           <h1 class="title">Finishing up</h1>
           <p class="p-description">Double-check everything looks OK before confirming.</p>
         </div>
-
+        <div class="plan-selected">
+          <div class="description">
+            <h2 class="plan">arcarde (monthly)</h2>
+            <p class="p-description">Change</p>
+          </div>
+          <div class="price">
+            <h2 class="plan">$9</h2>
+          </div>
+        </div>
         <!-- Dynamically add subscription and add-on selections here -->
         Total (per month/year)
         </section>

@@ -11,9 +11,9 @@ app.component('subscription-plans', {
       <template v-for="plan in subscriptionPlan">
         <input type="radio" name="plan" :id="plan.name" :value="plan.name + '(' + typeOfSubscription + ')'" class="radio-plan" v-model="subSelected" />
         <label :for="plan.name" class="card card-input">
-          <img :src="plan.img" alt="">
+          <img :src="plan.img" :alt="plan.name">
           <h2 class="plan">{{ plan.name }}</h2>
-          <h2 class="price">$ {{ typeOfSubscription === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
+          <h2 class="price">{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
         </label>
       </template>
     </section>
