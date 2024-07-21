@@ -22,7 +22,7 @@ main{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--cool-gray);
+  background-color: var(--magnolia);
 }
 
 .container{
@@ -241,6 +241,10 @@ input[type='checkbox']{
 .check-selected{
   border: 0.5px solid var(--purplish-blue);
   background-color: var(--magnolia);
+}
+
+label.add-on{
+  cursor: pointer;
 }
 
 /* ASIDE */

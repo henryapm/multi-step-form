@@ -8,10 +8,10 @@ app.component('add-ons', {
     <p class="p-description">Add-ons help enhance your gaming experience.</p>
   </div>
   <section class="add-on-plans flex">
-    <div class="add-on flex">
+    <label for="online" class="add-on flex">
       <div class="add-on-group flex">
         <div class="add-on-check">
-          <input type="checkbox" @click="checked" name="add-on" id="">
+          <input type="checkbox" @click="checked" name="add-on" id="online">
         </div>
         <div class="add-on-description">
           <h2 class="plan">Online service</h2>
@@ -19,27 +19,27 @@ app.component('add-ons', {
         </div>
       </div>
       <div class="add-on-price">+$1/mo</div>
-    </div>
-    <div class="add-on">
+    </label>
+    <label for="storage" class="add-on">
       <div class="add-on-group">
-        <div class="add-on-check"><input type="checkbox" @click="checked" name="add-on" id=""></div>
+        <div class="add-on-check"><input type="checkbox" @click="checked" name="add-on" id="storage"></div>
         <div class="add-on-description">
           <h2 class="plan">Larger storage</h2>
           <p class="add-on-description">Extra 1TB of cloud save</p>
         </div>
       </div>
       <div class="add-on-price">+$2/mo</div>
-    </div>
-    <div class="add-on">
+    </label>
+    <label for="custom" class="add-on">
       <div class="add-on-group">
-        <div class="add-on-check"><input type="checkbox" @click="checked" name="add-on" id=""></div>
+        <div class="add-on-check"><input type="checkbox" @click="checked" name="add-on" id="custom"></div>
         <div class="add-on-description">
           <h2 class="plan">Customizable Profile</h2>
           <p class="add-on-description">Custom theme on your profile</p>
         </div>
       </div>
       <div class="add-on-price">+$2/mo</div>
-    </div>
+    </label>
   </section>
 </section>
   `,
