@@ -20,16 +20,38 @@ app.component('form-display', {
           <p class="p-description">Double-check everything looks OK before confirming.</p>
         </div>
         <div class="plan-selected">
-          <div class="description">
-            <h2 class="plan">arcarde (monthly)</h2>
-            <p class="p-description">Change</p>
+          <div class="plan-group flex-row spaceBetween align-items-center">
+            <div class="plan-description">
+              <h2 class="plan">arcarde (monthly)</h2>
+              <p class="secondary underline hover mt-7">Change</p>
+            </div>
+            <div class="price">
+              <h2 class="plan">$9/mo</h2>
+            </div>
           </div>
-          <div class="price">
-            <h2 class="plan">$9</h2>
+          <div>
+            <div class="flex-row spaceBetween pt-16">
+              <div class="plan-description">
+                <p class="secondary">Online service</p>
+              </div>
+              <div class="price">
+                <h2 class="secondary">+$2/mo</h2>
+              </div>
+            </div>
+            <div class="flex-row spaceBetween pt-16">
+              <div class="plan-description">
+                <p class="secondary">Larger storage</p>
+              </div>
+              <div class="price">
+                <h2 class="secondary">+$1/mo</h2>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- Dynamically add subscription and add-on selections here -->
-        Total (per month/year)
+        <div class="plan-description total m-24 flex-row spaceBetween align-items-center">
+          <p class="secondary">Total (per month/year)</p>
+          <h2 class="price">$12/mo</h2>
+        </div>
         </section>
         <!-- Step 4 end -->
 

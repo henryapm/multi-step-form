@@ -149,6 +149,10 @@ label{
   justify-content: space-around;
 }
 
+.align-items-center{
+  align-items: center;
+}
+
 /* PLAN || CARDS  */
 
 .cards {
@@ -245,6 +249,54 @@ label.add-on{
 }
 
 
+/* PLAN SELECTED */
+
+.plan-selected{
+  background-color: var(--magnolia);
+  padding: 16px 24px 24px 24px;
+}
+
+.plan-selected .plan-group{
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.plan-description .secondary{
+  color: var(--cool-gray);
+  font-size: 12px;
+  font-weight: lighter;
+}
+
+.hover:hover{
+  color: var(--purplish-blue);
+  cursor: pointer;
+}
+
+.price .secondary{
+  color: var(--marine-blue);
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+h2.price{
+  font-size: 18px;
+  color: var(--purplish-blue);
+}
+
+.pt-16{
+  padding-top: 16px;
+}
+.m-24{
+  margin: 24px;
+}
+
+.mt-7{
+  margin-top: 7px;
+}
 
 /* ASIDE */
 
