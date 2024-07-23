@@ -4,7 +4,7 @@ const app = Vue.createApp({
       step: 3,
       name: '',
       email: '',
-      phone: null
+      phone: null,
     }
   },
   methods: {
