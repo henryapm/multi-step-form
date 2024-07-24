@@ -1,7 +1,7 @@
 const app = Vue.createApp({
   data() {
     return{
-      step: 3,
+      step: 0,
       name: '',
       email: '',
       phone: null,

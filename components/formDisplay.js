@@ -33,8 +33,8 @@ app.component('form-display', {
           <p class="p-description">You have the option of monthly or yearly billing.</p>
         </div>
         <section class="cards">
-          <template v-for="plan in subscriptionPlan">
-            <input type="radio" name="plan" :id="plan.name" :value="plan.name" class="radio-plan" v-model="subsSelected" />
+          <template v-for="(plan, index) in subscriptionPlan">
+            <input type="radio" name="plan" :id="plan.name" :value="index" class="radio-plan" v-model="subsSelected" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
@@ -96,7 +96,7 @@ app.component('form-display', {
       <!-- Step 3 ends -->
 
       <!-- Step 4 start -->
-      <section v-show="step === 3" class="step">
+      <section v-if="step === 3" class="step">
         <div class="description">
           <h1 class="title">Finishing up</h1>
           <p class="p-description">Double-check everything looks OK before confirming.</p>
@@ -104,11 +104,11 @@ app.component('form-display', {
         <div class="plan-selected">
           <div class="plan-group flex-row spaceBetween align-items-center">
             <div class="plan-description">
-              <h2 class="plan">arcarde (monthly)</h2>
+              <h2 class="plan">{{ subscriptionPlan[subsSelected].name }}({{ typeOfSubscription }})</h2>
               <p class="secondary underline hover mt-7">Change</p>
             </div>
             <div class="price">
-              <h2 class="plan">$9/mo</h2>
+              <h2 class="plan">{{ getSubscriptionPrice }}</h2>
             </div>
           </div>
           <div>
@@ -161,7 +161,12 @@ app.component('form-display', {
         { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg' }
       ],
       typeOfSubscription: 'monthly',
-      subsSelected: ''
+      subsSelected: null,
+      addOns: [
+        { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
+        { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
+        { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20 }
+      ]
     }
   },
   methods: {
@@ -185,6 +190,13 @@ app.component('form-display', {
       } else{
         event.currentTarget.closest('.add-on').classList.remove("check-selected")
       }
+    }
+  },
+  computed: {
+    getSubscriptionPrice() {
+      return this.typeOfSubscription === 'monthly' 
+        ? "$" + this.subscriptionPlan[this.subsSelected].monthlyPrice + "/mo" 
+        : "$" + this.subscriptionPlan[this.subsSelected].yearlyPrice + "/yr"
     }
   }
 })

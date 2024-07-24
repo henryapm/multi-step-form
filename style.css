@@ -171,6 +171,10 @@ label{
   color: var(--marine-blue);
 }
 
+.price .plan, .price .secondary{
+  text-transform: lowercase;
+}
+
 .card .price, .add-on .add-on-description{
   margin-top: 6px;
   color: var(--cool-gray);
