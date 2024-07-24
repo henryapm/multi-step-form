@@ -34,7 +34,7 @@ app.component('form-display', {
         </div>
         <section class="cards">
           <template v-for="(plan, index) in subscriptionPlan">
-            <input type="radio" name="plan" :id="plan.name" :value="index" class="radio-plan" v-model="subsSelected" />
+            <input type="radio" name="plan" :id="plan.name" :value="index" class="radio-plan" v-model="subscriptionSelected" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
@@ -58,8 +58,32 @@ app.component('form-display', {
           <h1 class="title">Pick add-ons</h1>
           <p class="p-description">Add-ons help enhance your gaming experience.</p>
         </div>
+        <!-- EXAMPLE
+        <template v-for="(plan, index) in subscriptionPlan">
+          <input type="radio" name="plan" :id="plan.name" :value="index" class="radio-plan" v-model="subscriptionSelected" />
+          <label :for="plan.name" class="card card-input">
+            <img :src="plan.img" :alt="plan.name">
+            <h2 class="plan">{{ plan.name }}</h2>
+            <h2 class="price">{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
+          </label>
+        </template>
+         END -->
         <section class="add-on-plans flex">
-          <label for="online" class="add-on flex">
+        <template v-for="(addOn, index) in addOns">
+          <label :for="getAddOnNamesArray[index]" class="add-on flex">
+            <div class="add-on-group flex">
+              <div class="add-on-check">
+                <input type="checkbox" @click="checked" name="add-on" :id="getAddOnNamesArray[index]">
+              </div>
+              <div class="add-on-description">
+                <h2 class="plan">{{ addOn.name }}</h2>
+                <p class="add-on-description">{{ addOn.description }}</p>
+              </div>
+            </div>
+            <div class="add-on-price">{{ getPriceOf(addOn) }}</div>
+          </label>
+        </template>
+          <!-- <label for="online" class="add-on flex">
             <div class="add-on-group flex">
               <div class="add-on-check">
                 <input type="checkbox" @click="checked" name="add-on" id="online">
@@ -90,7 +114,7 @@ app.component('form-display', {
               </div>
             </div>
             <div class="add-on-price">+$2/mo</div>
-          </label>
+          </label> -->
         </section>
       </section>
       <!-- Step 3 ends -->
@@ -104,11 +128,11 @@ app.component('form-display', {
         <div class="plan-selected">
           <div class="plan-group flex-row spaceBetween align-items-center">
             <div class="plan-description">
-              <h2 class="plan">{{ subscriptionPlan[subsSelected].name }}({{ typeOfSubscription }})</h2>
+              <h2 class="plan">{{ subscriptionPlan[subscriptionSelected].name }}({{ typeOfSubscription }})</h2>
               <p class="secondary underline hover mt-7">Change</p>
             </div>
             <div class="price">
-              <h2 class="plan">{{ getSubscriptionPrice }}</h2>
+              <h2 class="plan">{{ getPriceOf(subscriptionPlan[subscriptionSelected]) }}</h2>
             </div>
           </div>
           <div>
@@ -161,7 +185,7 @@ app.component('form-display', {
         { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg' }
       ],
       typeOfSubscription: 'monthly',
-      subsSelected: null,
+      subscriptionSelected: null,
       addOns: [
         { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
         { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
@@ -178,7 +202,7 @@ app.component('form-display', {
     },
     reset() {
       console.log('resetting')
-      this.subsSelected = ''
+      this.subscriptionSelected = ''
       const radios = document.querySelectorAll("input[type='radio']")
       radios.forEach(radio => {
         radio.checked = false
@@ -190,13 +214,21 @@ app.component('form-display', {
       } else{
         event.currentTarget.closest('.add-on').classList.remove("check-selected")
       }
+    },
+    getPriceOf(obj) {
+      return this.typeOfSubscription === 'monthly' 
+        ? "+$" + obj.monthlyPrice + "/mo" 
+        : "+$" + obj.yearlyPrice + "/yr"
     }
   },
   computed: {
-    getSubscriptionPrice() {
-      return this.typeOfSubscription === 'monthly' 
-        ? "$" + this.subscriptionPlan[this.subsSelected].monthlyPrice + "/mo" 
-        : "$" + this.subscriptionPlan[this.subsSelected].yearlyPrice + "/yr"
-    }
+    getAddOnNamesArray() {
+      const addOnNamesArray = this.addOns.map((add) => {
+        const splitName = add.name.split(" ")
+        return { name: splitName[0] }
+      })
+      console.log(addOnNamesArray)
+      return addOnNamesArray
+    },
   }
 })
