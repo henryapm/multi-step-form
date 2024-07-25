@@ -179,6 +179,7 @@ label{
   margin-top: 6px;
   color: var(--cool-gray);
   font-weight: 100;
+  font-size: 13px;
 }
 
 .card {

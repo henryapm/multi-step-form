@@ -58,22 +58,12 @@ app.component('form-display', {
           <h1 class="title">Pick add-ons</h1>
           <p class="p-description">Add-ons help enhance your gaming experience.</p>
         </div>
-        <!-- EXAMPLE
-        <template v-for="(plan, index) in subscriptionPlan">
-          <input type="radio" name="plan" :id="plan.name" :value="index" class="radio-plan" v-model="subscriptionSelected" />
-          <label :for="plan.name" class="card card-input">
-            <img :src="plan.img" :alt="plan.name">
-            <h2 class="plan">{{ plan.name }}</h2>
-            <h2 class="price">{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
-          </label>
-        </template>
-         END -->
         <section class="add-on-plans flex">
         <template v-for="(addOn, index) in addOns">
-          <label :for="getAddOnNamesArray[index]" class="add-on flex">
+          <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex">
             <div class="add-on-group flex">
               <div class="add-on-check">
-                <input type="checkbox" @click="checked" name="add-on" :id="getAddOnNamesArray[index]">
+                <input type="checkbox" @click="checked" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="addOn.selected">
               </div>
               <div class="add-on-description">
                 <h2 class="plan">{{ addOn.name }}</h2>
@@ -104,22 +94,16 @@ app.component('form-display', {
             </div>
           </div>
           <div>
-            <div class="flex-row spaceBetween pt-16">
-              <div class="plan-description">
-                <p class="secondary">Online service</p>
+            <template v-for="addOn in getSelectedProducts()">
+              <div class="flex-row spaceBetween pt-16">
+                <div class="plan-description">
+                  <p class="secondary">{{ addOn.name }}</p>
+                </div>
+                <div class="price">
+                  <h2 class="secondary">{{ getPriceOf(addOn) }}</h2>
+                </div>
               </div>
-              <div class="price">
-                <h2 class="secondary">+$2/mo</h2>
-              </div>
-            </div>
-            <div class="flex-row spaceBetween pt-16">
-              <div class="plan-description">
-                <p class="secondary">Larger storage</p>
-              </div>
-              <div class="price">
-                <h2 class="secondary">+$1/mo</h2>
-              </div>
-            </div>
+            </template>
           </div>
         </div>
         <div class="plan-description total m-24 flex-row spaceBetween align-items-center">
@@ -155,10 +139,11 @@ app.component('form-display', {
       typeOfSubscription: 'monthly',
       subscriptionSelected: null,
       addOns: [
-        { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
-        { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
-        { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20 }
-      ]
+        { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10, selected: false },
+        { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20, selected: false },
+        { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20, selected: false }
+      ],
+      selectedProducts: []
     }
   },
   methods: {
@@ -185,18 +170,21 @@ app.component('form-display', {
     },
     getPriceOf(obj) {
       return this.typeOfSubscription === 'monthly' 
-        ? "+$" + obj.monthlyPrice + "/mo" 
-        : "+$" + obj.yearlyPrice + "/yr"
+        ? "$" + obj.monthlyPrice + "/mo" 
+        : "$" + obj.yearlyPrice + "/yr"
+    },
+    getAddOnNamesArray(add) {
+      const wholeName = add.split(" ")
+      return  wholeName[0].toLowerCase()
+    },
+    getSelectedProducts() {
+      this.selectedProducts = this.addOns.filter(addOn => {
+        return addOn.selected;
+      });
+      return this.selectedProducts
     }
   },
   computed: {
-    getAddOnNamesArray() {
-      const addOnNamesArray = this.addOns.map((add) => {
-        const splitName = add.name.split(" ")
-        return { name: splitName[0] }
-      })
-      console.log(addOnNamesArray)
-      return addOnNamesArray
-    },
+    
   }
 })
