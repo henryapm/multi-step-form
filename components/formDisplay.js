@@ -10,7 +10,7 @@ app.component('form-display', {
   `
   <!-- <form @submit.prevent="onSubmit"> -->
     <section class="steps spaceBetween">
-    <!-- step 1 starts -->
+    <!-- Personal Information -->
       <section v-show="step === 0" class="step personal-info">
         <div class="description">
           <h1 class="title">Personal info</h1>
@@ -25,8 +25,7 @@ app.component('form-display', {
           <input type="text" name="phone" v-model="phone" id="phone" placeholder="e.g. +1 234 567 890 ">
         </div>
       </section>
-      <!-- step 1 ends -->
-      <!-- step 2 starts -->
+      <!-- Select your plan -->
       <section v-show="step === 1" class="step">
         <div class="description">
           <h1 class="title">Select your plan </h1>
@@ -34,11 +33,11 @@ app.component('form-display', {
         </div>
         <section class="cards">
           <template v-for="(plan, index) in subscriptionPlan">
-            <input type="radio" name="plan" :id="plan.name" :value="index" class="radio-plan" v-model="subscriptionSelected" />
+            <input type="radio" name="plan" :id="plan.name" :value="{id: index, price: getPriceOf(plan)}" class="radio-plan" v-model="selectedPlan" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
-              <h2 class="price">{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
+              <h2 class="price" v-model=>{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
             </label>
           </template>
         </section>
@@ -51,8 +50,7 @@ app.component('form-display', {
           <div class="yearly">Yearly</div>
         </div>
       </section>
-      <!-- step 2 ends -->
-      <!-- step 3 starts -->
+      <!-- Add ons -->
       <section v-show="step === 2" class="step">
         <div class="description">
           <h1 class="title">Pick add-ons</h1>
@@ -70,14 +68,13 @@ app.component('form-display', {
                 <p class="add-on-description">{{ addOn.description }}</p>
               </div>
             </div>
-            <div class="add-on-price">{{ getPriceOf(addOn) }}</div>
+            <div class="add-on-price">{{ getPriceOfFormated(addOn) }}</div>
           </label>
         </template>
         </section>
       </section>
-      <!-- Step 3 ends -->
 
-      <!-- Step 4 start -->
+      <!-- Finishing up -->
       <section v-if="step === 3" class="step">
         <div class="description">
           <h1 class="title">Finishing up</h1>
@@ -90,7 +87,7 @@ app.component('form-display', {
               <p class="secondary underline hover mt-7">Change</p>
             </div>
             <div class="price">
-              <h2 class="plan">{{ getPriceOf(subscriptionPlan[subscriptionSelected]) }}</h2>
+              <h2 class="plan">{{ getPriceOfFormated(subscriptionPlan[subscriptionSelected]) }}</h2>
             </div>
           </div>
           <div>
@@ -100,14 +97,14 @@ app.component('form-display', {
                   <p class="secondary">{{ addOn.name }}</p>
                 </div>
                 <div class="price">
-                  <h2 class="secondary">{{ getPriceOf(addOn) }}</h2>
+                  <h2 class="secondary">{{ getPriceOfFormated(addOn) }}</h2>
                 </div>
               </div>
             </template>
           </div>
         </div>
         <div class="plan-description total m-24 flex-row spaceBetween align-items-center">
-          <p class="secondary">Total (per month/year)</p>
+          <p class="secondary">Total (per {{ typeOfSubscription === 'monthly' ? 'month' : 'year' }})</p>
           <h2 class="price">$12/mo</h2>
         </div>
         </section>
@@ -143,7 +140,8 @@ app.component('form-display', {
         { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20, selected: false },
         { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20, selected: false }
       ],
-      selectedProducts: []
+      selectedProducts: [],
+      selectedPlan: {}
     }
   },
   methods: {
@@ -168,10 +166,15 @@ app.component('form-display', {
         event.currentTarget.closest('.add-on').classList.remove("check-selected")
       }
     },
-    getPriceOf(obj) {
+    getPriceOfFormated(obj) {
       return this.typeOfSubscription === 'monthly' 
         ? "$" + obj.monthlyPrice + "/mo" 
         : "$" + obj.yearlyPrice + "/yr"
+    },
+    getPriceOf(obj) {
+      return this.typeOfSubscription === 'monthly' 
+        ? obj.monthlyPrice
+        : obj.yearlyPrice
     },
     getAddOnNamesArray(add) {
       const wholeName = add.split(" ")
