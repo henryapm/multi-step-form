@@ -1,3 +1,5 @@
+const { ref } = Vue; 
+
 app.component('form-display', {
   props: {
     step: {
@@ -37,7 +39,7 @@ app.component('form-display', {
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
-              <h2 class="price" v-model=>{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
+              <h2 class="price">{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
             </label>
           </template>
         </section>
@@ -58,10 +60,10 @@ app.component('form-display', {
         </div>
         <section class="add-on-plans flex">
         <template v-for="(addOn, index) in addOns">
-          <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex">
+          <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex" :class="{checkSelected: isSelected(index)}">
             <div class="add-on-group flex">
               <div class="add-on-check">
-                <input type="checkbox" @click="checked" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="addOn.selected">
+                <input type="checkbox" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="selectedProducts" :value="{ id: index, name: addOn.name, price: getPriceOf(addOn) }">
               </div>
               <div class="add-on-description">
                 <h2 class="plan">{{ addOn.name }}</h2>
@@ -83,21 +85,21 @@ app.component('form-display', {
         <div class="plan-selected">
           <div class="plan-group flex-row spaceBetween align-items-center">
             <div class="plan-description">
-              <h2 class="plan">{{ subscriptionPlan[subscriptionSelected].name }}({{ typeOfSubscription }})</h2>
+              <h2 class="plan">{{ subscriptionPlan[selectedPlan.id].name }}({{ typeOfSubscription }})</h2>
               <p class="secondary underline hover mt-7">Change</p>
             </div>
             <div class="price">
-              <h2 class="plan">{{ getPriceOfFormated(subscriptionPlan[subscriptionSelected]) }}</h2>
+              <h2 class="plan">{{ formatPrice(selectedPlan.price) }}</h2>
             </div>
           </div>
           <div>
-            <template v-for="addOn in getSelectedProducts()">
+            <template v-for="addOn in selectedProducts">
               <div class="flex-row spaceBetween pt-16">
                 <div class="plan-description">
                   <p class="secondary">{{ addOn.name }}</p>
                 </div>
                 <div class="price">
-                  <h2 class="secondary">{{ getPriceOfFormated(addOn) }}</h2>
+                  <h2 class="secondary">{{ formatPrice(addOn.price) }}</h2>
                 </div>
               </div>
             </template>
@@ -105,7 +107,7 @@ app.component('form-display', {
         </div>
         <div class="plan-description total m-24 flex-row spaceBetween align-items-center">
           <p class="secondary">Total (per {{ typeOfSubscription === 'monthly' ? 'month' : 'year' }})</p>
-          <h2 class="price">$12/mo</h2>
+          <h2 class="price">{{ formatPrice(getSubscriptionCost()) }}</h2>
         </div>
         </section>
         <!-- Step 4 end -->
@@ -136,9 +138,9 @@ app.component('form-display', {
       typeOfSubscription: 'monthly',
       subscriptionSelected: null,
       addOns: [
-        { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10, selected: false },
-        { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20, selected: false },
-        { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20, selected: false }
+        { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
+        { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
+        { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20 }
       ],
       selectedProducts: [],
       selectedPlan: {}
@@ -153,23 +155,25 @@ app.component('form-display', {
     },
     reset() {
       console.log('resetting')
-      this.subscriptionSelected = ''
+      this.subscriptionSelected = '';
       const radios = document.querySelectorAll("input[type='radio']")
       radios.forEach(radio => {
         radio.checked = false
-      })
+      });
+      this.selectedProducts = [];
     },
-    checked(event){
-      if (event.currentTarget.checked){
-        event.currentTarget.closest('.add-on').classList.add("check-selected")
-      } else{
-        event.currentTarget.closest('.add-on').classList.remove("check-selected")
-      }
+    isSelected(id) {
+      return this.selectedProducts.includes(id);
     },
     getPriceOfFormated(obj) {
       return this.typeOfSubscription === 'monthly' 
         ? "$" + obj.monthlyPrice + "/mo" 
         : "$" + obj.yearlyPrice + "/yr"
+    },
+    formatPrice(price){
+      return this.typeOfSubscription === 'monthly' 
+        ? "$" + price + "/mo" 
+        : "$" + price + "/yr"
     },
     getPriceOf(obj) {
       return this.typeOfSubscription === 'monthly' 
@@ -180,14 +184,12 @@ app.component('form-display', {
       const wholeName = add.split(" ")
       return  wholeName[0].toLowerCase()
     },
-    getSelectedProducts() {
-      this.selectedProducts = this.addOns.filter(addOn => {
-        return addOn.selected;
-      });
-      return this.selectedProducts
+    getSubscriptionCost(){
+      let totalCost = null;
+      this.selectedProducts.forEach(prod =>{
+        totalCost += prod.price
+      })
+      return totalCost + this.selectedPlan.price;
     }
   },
-  computed: {
-    
-  }
 })

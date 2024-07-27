@@ -244,7 +244,7 @@ input[type='checkbox']{
   accent-color: var(--purplish-blue);
 }
 
-.check-selected{
+.checkSelected{
   border: 0.5px solid var(--purplish-blue);
   background-color: var(--magnolia);
 }
