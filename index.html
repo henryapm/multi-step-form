@@ -52,7 +52,7 @@
           </aside>
         </section>
         <!-- insert component form here -->
-        <form-display @step-by="(n) => step += n" :step="step"></form-display>
+        <form-display @step-by="(n) => step += n" :step="step" @change-step="step = 1"></form-display>
       </section>
     </main>
 

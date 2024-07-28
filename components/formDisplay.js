@@ -20,11 +20,11 @@ app.component('form-display', {
         </div>
         <div class="form flex-column">
           <label for="name">Name</label>
-          <input type="text" name="name" v-model="name" placeholder="e.g. Stephen King">
+          <input type="text" name="name" v-model="personalInfo.name" id="name" placeholder="e.g. Stephen King" required>
           <label for="email">Email Address</label>
-          <input type="email" name="email" v-model="email" id="email" placeholder="e.g. stephenking@lorem.com">
+          <input type="email" name="email" v-model="personalInfo.email" id="email" placeholder="e.g. stephenking@lorem.com" required>
           <label for="phone">Phone Number</label>
-          <input type="text" name="phone" v-model="phone" id="phone" placeholder="e.g. +1 234 567 890 ">
+          <input type="text" name="phone" v-model="personalInfo.phone" id="phone" placeholder="e.g. +1 234 567 890 " required>
         </div>
       </section>
       <!-- Select your plan -->
@@ -86,7 +86,7 @@ app.component('form-display', {
           <div class="plan-group flex-row spaceBetween align-items-center">
             <div class="plan-description">
               <h2 class="plan">{{ subscriptionPlan[selectedPlan.id].name }}({{ typeOfSubscription }})</h2>
-              <p class="secondary underline hover mt-7">Change</p>
+              <p class="secondary underline hover mt-7" @click="$emit('changeStep')">Change</p>
             </div>
             <div class="price">
               <h2 class="plan">{{ formatPrice(selectedPlan.price) }}</h2>
@@ -127,9 +127,11 @@ app.component('form-display', {
   <!-- Step 5 end -->`,
   data() {
     return{
-      name: '',
-      email: '',
-      phone: null,
+      personalInfo: {
+        name: '',
+        email: '',
+        phone: null
+      },
       subscriptionPlan: [
         { name: 'arcade', monthlyPrice: 9, yearlyPrice: 90, img: './assets/images/icon-arcade.svg'},
         { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg' },
@@ -147,12 +149,6 @@ app.component('form-display', {
     }
   },
   methods: {
-    nextStep(){
-      this.$emit('next-step')
-    },
-    onSubmit(){
-
-    },
     reset() {
       console.log('resetting')
       this.subscriptionSelected = '';
@@ -190,6 +186,9 @@ app.component('form-display', {
         totalCost += prod.price
       })
       return totalCost + this.selectedPlan.price;
+    },
+    changePlan(){
+      this.$emit(change-plan)
     }
   },
 })
