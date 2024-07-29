@@ -20,11 +20,11 @@ app.component('form-display', {
         </div>
         <div class="form flex-column">
           <label for="name">Name</label>
-          <input type="text" name="name" v-model="personalInfo.name" id="name" placeholder="e.g. Stephen King" required>
+          <input type="text" name="name" v-model="form.personalInfo.name" id="name" placeholder="e.g. Stephen King" required>
           <label for="email">Email Address</label>
-          <input type="email" name="email" v-model="personalInfo.email" id="email" placeholder="e.g. stephenking@lorem.com" required>
+          <input type="email" name="email" v-model="form.personalInfo.email" id="email" placeholder="e.g. stephenking@lorem.com" required>
           <label for="phone">Phone Number</label>
-          <input type="text" name="phone" v-model="personalInfo.phone" id="phone" placeholder="e.g. +1 234 567 890 " required>
+          <input type="text" name="phone" v-model="form.personalInfo.phone" id="phone" placeholder="e.g. +1 234 567 890 " required>
         </div>
       </section>
       <!-- Select your plan -->
@@ -35,7 +35,7 @@ app.component('form-display', {
         </div>
         <section class="cards">
           <template v-for="(plan, index) in subscriptionPlan">
-            <input type="radio" name="plan" :id="plan.name" :value="{id: index, price: getPriceOf(plan)}" class="radio-plan" v-model="selectedPlan" />
+            <input type="radio" name="plan" :id="plan.name" :value="{id: index, price: getPriceOf(plan)}" class="radio-plan" v-model="form.selectedPlan" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
@@ -63,7 +63,7 @@ app.component('form-display', {
           <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex" :class="{checkSelected: isSelected(index)}">
             <div class="add-on-group flex">
               <div class="add-on-check">
-                <input type="checkbox" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="selectedProducts" :value="{ id: index, name: addOn.name, price: getPriceOf(addOn) }">
+                <input type="checkbox" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="form.selectedProducts" :value="{ id: index, name: addOn.name, price: getPriceOf(addOn) }">
               </div>
               <div class="add-on-description">
                 <h2 class="plan">{{ addOn.name }}</h2>
@@ -85,15 +85,15 @@ app.component('form-display', {
         <div class="plan-selected">
           <div class="plan-group flex-row spaceBetween align-items-center">
             <div class="plan-description">
-              <h2 class="plan">{{ subscriptionPlan[selectedPlan.id].name }}({{ typeOfSubscription }})</h2>
-              <p class="secondary underline hover mt-7" @click="$emit('changeStep')">Change</p>
+              <h2 class="plan">{{ subscriptionPlan[form.selectedPlan.id].name }}({{ typeOfSubscription }})</h2>
+              <p class="secondary underline hover mt-7" @click="changePlan">Change</p>
             </div>
             <div class="price">
-              <h2 class="plan">{{ formatPrice(selectedPlan.price) }}</h2>
+              <h2 class="plan">{{ formatPrice(form.selectedPlan.price) }}</h2>
             </div>
           </div>
           <div>
-            <template v-for="addOn in selectedProducts">
+            <template v-for="addOn in form.selectedProducts">
               <div class="flex-row spaceBetween pt-16">
                 <div class="plan-description">
                   <p class="secondary">{{ addOn.name }}</p>
@@ -120,17 +120,17 @@ app.component('form-display', {
       </section>
       <section :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
         <button v-if="step > 0" @click="$emit('stepBy', -1)" class="go-back">Go Back</button>
-        <button @click="$emit('stepBy', 1)" class="next-step">Next Step</button>
+        <button @click="changeStep" class="next-step">Next Step</button>
       </section>
     </section>
   <!-- </form> -->
   <!-- Step 5 end -->`,
   data() {
     return{
-      personalInfo: {
-        name: '',
-        email: '',
-        phone: null
+      form: {
+        personalInfo: { name: '', email: '', phone: null },
+        selectedProducts: [],
+        selectedPlan: {},
       },
       subscriptionPlan: [
         { name: 'arcade', monthlyPrice: 9, yearlyPrice: 90, img: './assets/images/icon-arcade.svg'},
@@ -144,8 +144,7 @@ app.component('form-display', {
         { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
         { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20 }
       ],
-      selectedProducts: [],
-      selectedPlan: {}
+      FormCompleted: false,
     }
   },
   methods: {
@@ -156,10 +155,10 @@ app.component('form-display', {
       radios.forEach(radio => {
         radio.checked = false
       });
-      this.selectedProducts = [];
+      this.form.selectedProducts = [];
     },
     isSelected(id) {
-      return this.selectedProducts.includes(id);
+      return this.form.selectedProducts.includes(id);
     },
     getPriceOfFormated(obj) {
       return this.typeOfSubscription === 'monthly' 
@@ -182,13 +181,19 @@ app.component('form-display', {
     },
     getSubscriptionCost(){
       let totalCost = null;
-      this.selectedProducts.forEach(prod =>{
+      this.form.selectedProducts.forEach(prod =>{
         totalCost += prod.price
       })
-      return totalCost + this.selectedPlan.price;
+      return totalCost + this.form.selectedPlan.price;
     },
     changePlan(){
-      this.$emit(change-plan)
+      this.$emit('changeStep')
+    },
+    isFormComplete(){
+      console.log(this.formCompleted = Object.values(this.form.personalInfo).some(value => value))
+    },
+    changeStep(){
+      this.isFormComplete && this.$emit('stepBy', 1)
     }
   },
 })
