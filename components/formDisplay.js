@@ -190,10 +190,10 @@ app.component('form-display', {
       this.$emit('changeStep')
     },
     isFormComplete(){
-      console.log(this.formCompleted = Object.values(this.form.personalInfo).some(value => value))
+      return Object.values(this.form.personalInfo).every(value => value)
     },
     changeStep(){
-      this.isFormComplete && this.$emit('stepBy', 1)
+      this.isFormComplete() && this.$emit('stepBy', 1)
     }
   },
 })
