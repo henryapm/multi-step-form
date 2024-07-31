@@ -35,7 +35,7 @@ app.component('form-display', {
         </div>
         <section class="cards">
           <template v-for="(plan, index) in subscriptionPlan">
-            <input type="radio" name="plan" :id="plan.name" :checked="plan.isChecked" :value="{id: index, price: getPriceOf(plan)}" class="radio-plan" v-model="form.selectedPlan" />
+            <input type="radio" name="plan" :id="plan.name" :checked="plan.isChecked" :value="{id: index, price: plan.price[typeOfSubscription]}" class="radio-plan" v-model="form.selectedPlan" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
@@ -63,14 +63,14 @@ app.component('form-display', {
           <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex" :class="{checkSelected: isSelected(index)}">
             <div class="add-on-group flex">
               <div class="add-on-check">
-                <input type="checkbox" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="form.selectedProducts" :value="{ id: index, name: addOn.name, price: getPriceOf(addOn) }">
+                <input type="checkbox" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="form.selectedProducts" :value="{ id: index, name: addOn.name, price: addOn.price[typeOfSubscription] }">
               </div>
               <div class="add-on-description">
                 <h2 class="plan">{{ addOn.name }}</h2>
                 <p class="add-on-description">{{ addOn.description }}</p>
               </div>
             </div>
-            <div class="add-on-price">{{ getPriceOfFormated(addOn) }}</div>
+            <div class="add-on-price">{{ formatPrice(addOn.price[typeOfSubscription]) }}</div>
           </label>
         </template>
         </section>
@@ -139,9 +139,9 @@ app.component('form-display', {
         { name: 'pro', price: {monthly: 15, yearly: 150}, img: './assets/images/icon-pro.svg', isChecked: false }
       ],
       addOns: [
-        { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
-        { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
-        { name: 'Customizable Profile', description: 'Custom theme on your profile', monthlyPrice: 2, yearlyPrice: 20 }
+        { name: 'Online service', description: 'Access to multiplayer games', price:{ monthly: 1, yearly: 10} },
+        { name: 'Larger storage', description: 'Extra 1TB of cloud save', price:{ monthly: 2, yearly: 20} },
+        { name: 'Customizable Profile', description: 'Custom theme on your profile', price:{ monthly: 2, yearly: 20} }
       ],
       FormCompleted: false,
     }
@@ -153,20 +153,10 @@ app.component('form-display', {
     isSelected(id) {
       return this.form.selectedProducts.includes(id);
     },
-    getPriceOfFormated(obj) {
-      return this.typeOfSubscription === 'monthly' 
-        ? "$" + obj.monthlyPrice + "/mo" 
-        : "$" + obj.yearlyPrice + "/yr"
-    },
     formatPrice(price){
       return this.typeOfSubscription === 'monthly' 
         ? "$" + price + "/mo" 
         : "$" + price + "/yr"
-    },
-    getPriceOf(obj) {
-      return this.typeOfSubscription === 'monthly' 
-        ? obj.monthlyPrice
-        : obj.yearlyPrice
     },
     getAddOnNamesArray(add) {
       const wholeName = add.split(" ")
@@ -189,9 +179,4 @@ app.component('form-display', {
       this.isFormComplete() && this.$emit('stepBy', 1)
     }
   },
-  computed: {
-    isMonthly(){
-      return this.typeOfSubscription === 'monthly' ? true : false
-    }
-  }
 })
