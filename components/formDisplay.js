@@ -130,7 +130,7 @@ app.component('form-display', {
       form: {
         personalInfo: { name: '', email: '', phone: null },
         selectedProducts: [],
-        selectedPlan: {},
+        selectedPlan: {id: 0, price: 9},
       },
       typeOfSubscription: 'monthly',
       subscriptionPlan: [
@@ -138,7 +138,6 @@ app.component('form-display', {
         { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg', isChecked: false },
         { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg', isChecked: false }
       ],
-      subscriptionSelected: 0,
       addOns: [
         { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
         { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
@@ -148,14 +147,18 @@ app.component('form-display', {
     }
   },
   methods: {
+    isMonthly(){
+      return this.typeOfSubscription === 'monthly' ? true : false
+    },
     reset() {
-      console.log('resetting')
-      // // this.subscriptionSelected = '';
-      // const radios = document.querySelectorAll("input[type='radio']")
-      // radios.forEach(radio => {
-      //   radio.checked = false
-      // });
-      this.form.selectedProducts = [];
+      console.log('resetting');
+      this.subscriptionPlan.forEach(plan => {
+        plan.isChecked = false;
+      });
+
+      let whichPrice = this.isMonthly() ? 9 : 90;
+      this.form.selectedPlan = { id:0, price: whichPrice},
+      this.form.selectedProducts = []
     },
     isSelected(id) {
       return this.form.selectedProducts.includes(id);
