@@ -97,6 +97,21 @@ label{
   color: var(--light-gray);
 }
 
+.required{
+  font-size: 13px;
+  font-weight: bold;
+  color: red;
+}
+
+input.required{
+  border: 1px solid red;
+}
+
+input.form:hover, input.form:focus, input.form:focus-visible{
+  border: 1px solid var(--purplish-blue);
+  cursor: pointer;
+}
+
 /* BUTTONS */
 
 .buttons{

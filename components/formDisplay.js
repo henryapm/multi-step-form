@@ -19,12 +19,12 @@ app.component('form-display', {
           <p class="p-description">Please provide your name, email address, and phone number.</p>
         </div>
         <div class="form flex-column">
-          <label for="name">Name</label>
-          <input type="text" name="name" v-model="form.personalInfo.name" id="name" placeholder="e.g. Stephen King" required>
-          <label for="email">Email Address</label>
-          <input type="email" name="email" v-model="form.personalInfo.email" id="email" placeholder="e.g. stephenking@lorem.com" required>
-          <label for="phone">Phone Number</label>
-          <input type="text" name="phone" v-model="form.personalInfo.phone" id="phone" placeholder="e.g. +1 234 567 890 " required>
+          <div class="flex-row spaceBetween"><label for="name">Name</label><span v-show="required && !form.personalInfo.name" class="required">This field is required</span></div>
+          <input type="text" name="name" v-model="form.personalInfo.name" id="name" placeholder="e.g. Stephen King" required class="form" :class="{ required: required && !form.personalInfo.name }">
+          <div class="flex-row spaceBetween"><label for="email">Email Address</label><span v-show="required && !form.personalInfo.email" class="required">This field is required</span></div>
+          <input type="email" name="email" v-model="form.personalInfo.email" id="email" placeholder="e.g. stephenking@lorem.com" required class="form" :class="{ required: required && !form.personalInfo.email }">
+          <div class="flex-row spaceBetween"><label for="phone">Phone Number</label><span v-show="required && !form.personalInfo.phone" class="required">This field is required</span></div>
+          <input type="text" name="phone" v-model="form.personalInfo.phone" id="phone" placeholder="e.g. +1 234 567 890 " required class="form" :class="{ required: required && !form.personalInfo.phone }">
         </div>
       </section>
       <!-- Select your plan -->
@@ -132,6 +132,7 @@ app.component('form-display', {
         selectedProducts: [],
         selectedPlan: {id: 0, price: 9},
       },
+      required: false,
       typeOfSubscription: 'monthly',
       subscriptionPlan: [
         { name: 'arcade', price: {monthly: 9, yearly: 90}, img: './assets/images/icon-arcade.svg', isChecked: true},
@@ -176,7 +177,8 @@ app.component('form-display', {
       return Object.values(this.form.personalInfo).every(value => value)
     },
     changeStep(){
-      this.isFormComplete() && this.$emit('stepBy', 1)
+      this.required = true;
+      this.isFormComplete() && this.$emit('stepBy', 1);
     }
   },
 })
