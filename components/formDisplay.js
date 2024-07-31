@@ -39,7 +39,7 @@ app.component('form-display', {
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
-              <h2 class="price">{{ formatPrice(getPriceOf(plan)) }}</h2>
+              <h2 class="price">{{ formatPrice(plan.price[typeOfSubscription]) }}</h2>
             </label>
           </template>
         </section>
@@ -89,7 +89,7 @@ app.component('form-display', {
               <p class="secondary underline hover mt-7" @click="changePlan">Change</p>
             </div>
             <div class="price">
-              <h2 class="plan">{{ formatPrice(form.selectedPlan.price) }}</h2>
+              <h2 class="plan">{{ formatPrice(subscriptionPlan[form.selectedPlan.id].price[typeOfSubscription]) }}</h2>
             </div>
           </div>
           <div>
@@ -134,9 +134,9 @@ app.component('form-display', {
       },
       typeOfSubscription: 'monthly',
       subscriptionPlan: [
-        { name: 'arcade', monthlyPrice: 9, yearlyPrice: 90, img: './assets/images/icon-arcade.svg', isChecked: true},
-        { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg', isChecked: false },
-        { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg', isChecked: false }
+        { name: 'arcade', price: {monthly: 9, yearly: 90}, img: './assets/images/icon-arcade.svg', isChecked: true},
+        { name: 'advanced', price: {monthly: 12, yearly: 120}, img: './assets/images/icon-advanced.svg', isChecked: false },
+        { name: 'pro', price: {monthly: 15, yearly: 150}, img: './assets/images/icon-pro.svg', isChecked: false }
       ],
       addOns: [
         { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
@@ -147,17 +147,7 @@ app.component('form-display', {
     }
   },
   methods: {
-    isMonthly(){
-      return this.typeOfSubscription === 'monthly' ? true : false
-    },
     reset() {
-      console.log('resetting');
-      this.subscriptionPlan.forEach(plan => {
-        plan.isChecked = false;
-      });
-
-      let whichPrice = this.isMonthly() ? 9 : 90;
-      this.form.selectedPlan = { id:0, price: whichPrice},
       this.form.selectedProducts = []
     },
     isSelected(id) {
@@ -187,7 +177,7 @@ app.component('form-display', {
       this.form.selectedProducts.forEach(prod =>{
         totalCost += prod.price
       })
-      return totalCost + this.form.selectedPlan.price;
+      return totalCost + this.subscriptionPlan[this.form.selectedPlan.id].price[this.typeOfSubscription];
     },
     changePlan(){
       this.$emit('changeStep')
@@ -199,4 +189,9 @@ app.component('form-display', {
       this.isFormComplete() && this.$emit('stepBy', 1)
     }
   },
+  computed: {
+    isMonthly(){
+      return this.typeOfSubscription === 'monthly' ? true : false
+    }
+  }
 })
