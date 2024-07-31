@@ -35,11 +35,11 @@ app.component('form-display', {
         </div>
         <section class="cards">
           <template v-for="(plan, index) in subscriptionPlan">
-            <input type="radio" name="plan" :id="plan.name" :value="{id: index, price: getPriceOf(plan)}" class="radio-plan" v-model="form.selectedPlan" />
+            <input type="radio" name="plan" :id="plan.name" :checked="plan.isChecked" :value="{id: index, price: getPriceOf(plan)}" class="radio-plan" v-model="form.selectedPlan" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
               <h2 class="plan">{{ plan.name }}</h2>
-              <h2 class="price">{{ typeOfSubscription === 'monthly' ? '$' + plan.monthlyPrice : '$' + plan.yearlyPrice }}/<abbr v-if="typeOfSubscription === 'monthly'">mo</abbr><abbr v-else>yr</abbr></h2>
+              <h2 class="price">{{ formatPrice(getPriceOf(plan)) }}</h2>
             </label>
           </template>
         </section>
@@ -132,13 +132,13 @@ app.component('form-display', {
         selectedProducts: [],
         selectedPlan: {},
       },
-      subscriptionPlan: [
-        { name: 'arcade', monthlyPrice: 9, yearlyPrice: 90, img: './assets/images/icon-arcade.svg'},
-        { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg' },
-        { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg' }
-      ],
       typeOfSubscription: 'monthly',
-      subscriptionSelected: null,
+      subscriptionPlan: [
+        { name: 'arcade', monthlyPrice: 9, yearlyPrice: 90, img: './assets/images/icon-arcade.svg', isChecked: true},
+        { name: 'advanced', monthlyPrice: 12, yearlyPrice: 120, img: './assets/images/icon-advanced.svg', isChecked: false },
+        { name: 'pro', monthlyPrice: 15, yearlyPrice: 150, img: './assets/images/icon-pro.svg', isChecked: false }
+      ],
+      subscriptionSelected: 0,
       addOns: [
         { name: 'Online service', description: 'Access to multiplayer games', monthlyPrice: 1, yearlyPrice: 10 },
         { name: 'Larger storage', description: 'Extra 1TB of cloud save', monthlyPrice: 2, yearlyPrice: 20 },
@@ -150,11 +150,11 @@ app.component('form-display', {
   methods: {
     reset() {
       console.log('resetting')
-      this.subscriptionSelected = '';
-      const radios = document.querySelectorAll("input[type='radio']")
-      radios.forEach(radio => {
-        radio.checked = false
-      });
+      // // this.subscriptionSelected = '';
+      // const radios = document.querySelectorAll("input[type='radio']")
+      // radios.forEach(radio => {
+      //   radio.checked = false
+      // });
       this.form.selectedProducts = [];
     },
     isSelected(id) {
