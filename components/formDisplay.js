@@ -124,7 +124,7 @@ app.component('form-display', {
           </p>
         </div> 
       </section>
-      <section v-if="step > 0 && step < 4" :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
+      <section v-if="step >= 0 && step < 4" :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
         <button v-if="step > 0" @click="$emit('stepBy', -1)" class="go-back">Go Back</button>
         <button @click="changeStep" class="next-step" :class="{ confirm: step === 3 }">{{ step != 3 ? 'Next Step' : 'Confirm'}}</button>
       </section>
