@@ -11,7 +11,7 @@ app.component('form-display', {
   /*html*/
   `
   <!-- <form @submit.prevent="onSubmit"> -->
-    <section class="steps spaceBetween">
+    <section class="steps spaceBetween" :class="{spaceAround: step === 4}">
     <!-- Personal Information -->
       <section v-show="step === 0" class="step personal-info">
         <div class="description">
@@ -113,14 +113,20 @@ app.component('form-display', {
         <!-- Step 4 end -->
 
       <!-- Step 5 start -->
-      <section v-show="step === 4" class="step">
-        Thank you! Thanks for confirming your subscription! We hope you have fun
-        using our platform. If you ever need support, please feel free to email
-        us at support@loremgaming.com.
+      <section v-show="step === 4" class="step align-items-center">
+        <div class="description flex flex-column align-items-center justify-content-center mx-w ">
+          <img src="../assets/images/icon-thank-you.svg"/>
+          <h1 class="title">Thank you!</h1>
+          <p class="p-description center">
+            Thanks for confirming your subscription! We hope you have fun
+            using our platform. If you ever need support, please feel free to email
+            us at support@loremgaming.com.
+          </p>
+        </div> 
       </section>
-      <section :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
+      <section v-if="step > 0 && step < 4" :class="['buttons flex-end', (step > 0 && step < 4 ? 'spaceBetween' : '')]">
         <button v-if="step > 0" @click="$emit('stepBy', -1)" class="go-back">Go Back</button>
-        <button @click="changeStep" class="next-step">Next Step</button>
+        <button @click="changeStep" class="next-step" :class="{ confirm: step === 3 }">{{ step != 3 ? 'Next Step' : 'Confirm'}}</button>
       </section>
     </section>
   <!-- </form> -->

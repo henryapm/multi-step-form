@@ -77,6 +77,18 @@ section.step {
   font-size: 16px;
 }
 
+.step .mx-w{
+  max-width: 450px;
+}
+
+.center{
+  text-align: center;
+}
+
+.v-align-center{
+  align-content: center;
+}
+
 /* FORMS */
 
 label{
@@ -138,6 +150,21 @@ input.form:hover, input.form:focus, input.form:focus-visible{
   cursor: pointer;
 }
 
+.next-step:hover{
+  opacity: 85%;
+}
+
+.confirm{
+  color: white;
+  background-color: var(--purplish-blue);
+  bottom: 10px;
+  text-align: right;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: 0;
+  cursor: pointer;
+}
+
 /* FLEX CLASSES */
 .flex{
   display: flex;
@@ -168,6 +195,10 @@ input.form:hover, input.form:focus, input.form:focus-visible{
   align-items: center;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
 /* PLAN || CARDS  */
 
 .cards {
@@ -186,7 +217,7 @@ input.form:hover, input.form:focus, input.form:focus-visible{
   color: var(--marine-blue);
 }
 
-.price .plan, .price .secondary{
+.price .plan, .price .secondary, .card .price{
   text-transform: lowercase;
 }
 
@@ -206,6 +237,7 @@ input.form:hover, input.form:focus, input.form:focus-visible{
 
 .card:hover{
   cursor: pointer;
+  border: 1px solid var(--purplish-blue);
 }
 
 .card img{
