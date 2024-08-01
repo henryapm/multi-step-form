@@ -60,7 +60,7 @@ app.component('form-display', {
         </div>
         <section class="add-on-plans flex">
         <template v-for="(addOn, index) in addOns">
-          <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex" :class="{checkSelected: isSelected(index)}">
+          <label :for="getAddOnNamesArray(addOn.name)" class="add-on flex" :class="{ checkSelected: isSelected(index) }">
             <div class="add-on-group flex">
               <div class="add-on-check">
                 <input type="checkbox" name="add-on" :id="getAddOnNamesArray(addOn.name)" v-model="form.selectedProducts" :value="{ id: index, name: addOn.name, price: addOn.price[typeOfSubscription] }">
@@ -152,7 +152,7 @@ app.component('form-display', {
       this.form.selectedProducts = []
     },
     isSelected(id) {
-      return this.form.selectedProducts.includes(id);
+      return this.form.selectedProducts.some(el => el.id === id);
     },
     formatPrice(price){
       return this.typeOfSubscription === 'monthly' 

@@ -259,7 +259,7 @@ input[type='checkbox']{
   accent-color: var(--purplish-blue);
 }
 
-.checkSelected{
+.checkSelected, .add-on:hover{
   border: 0.5px solid var(--purplish-blue);
   background-color: var(--magnolia);
 }
