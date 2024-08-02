@@ -32,23 +32,20 @@ main{
   border-radius: 10px;
   justify-content: space-between;
   background-color: white;
+  padding: 1rem;
 }
 
 .navigation{
   justify-content: flex-start;
-}
+  background-image: url("./assets/images/bg-sidebar-desktop.svg");
+  height: 568px;
+  width: 274px;
 
-aside{
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 16px;
-  position: relative;
 }
 
 /* STEPS */
 
 section.steps{
-  padding: 16px;
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
@@ -352,57 +349,39 @@ h2.price{
 
 /* ASIDE */
 
-ol {
+.nav {
   list-style: none;
-  position: absolute;
-  top: 40px;
-  left: 30px;
-  display: table;
-  border-collapse: separate;
-  border-spacing: 20px;
+  margin-top: 40px;
+  margin-left: 32px;
   text-transform: uppercase;
 }
 
-ol > li {
-  counter-increment: step-counter;
-  display: table-row;
+.nav__step {
+  margin-bottom: 32px;
 }
 
-ol > li::before {
-  content: counter(step-counter) ".";
-  display: table-cell; /* aha! */
-  text-align: right;
-  align-content: center;
-  
-}
 
-ol li.selected::before {
+.number.selected {
   background-color: var(--light-blue);
   color: var(--marine-blue);
   font-weight: bold;
 }
 
-ol li{
-  margin: 0;
-  padding: 0;
-  counter-increment: step-counter;
-}
-
-ol li::before{
-  content: counter(step-counter);
+.number{
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
   padding: 4px 10px;
   border: 1px solid white;
   border-radius: 50%;
   color: white;
   font-weight: bold;
-}
-
-ol li .step{
-  font-size: 13px;
+  margin-right: 16px;
 }
 
 .step-number{
   color: white;
+  font-size: 13px;
   opacity: 60%;
 }
 
