@@ -368,10 +368,7 @@ h2.price{
 }
 
 .number{
-  vertical-align: middle;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 10px;
+  padding: 6px 11px;
   border: 1px solid white;
   border-radius: 50%;
   color: white;
@@ -387,7 +384,7 @@ h2.price{
 
 .step-name{
   margin-top: 4px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   color: white;
 }
