@@ -49,13 +49,48 @@ section.steps{
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 section.step {
   display: flex;
   flex-direction: column;
   margin-right: 6rem;
-  min-width: 450px;
+  max-width: 450px;
+}
+
+/* FLEX CLASSES */
+.flex{
+  display: flex;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-end{
+  justify-content: flex-end;
+}
+
+.spaceBetween{
+  justify-content: space-between;
+}
+.spaceAround{
+  justify-content: space-around;
+}
+
+.align-items-center{
+  align-items: center;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 /* STEPS - DESCRIPTION */
@@ -162,40 +197,6 @@ input.form:hover, input.form:focus, input.form:focus-visible{
   cursor: pointer;
 }
 
-/* FLEX CLASSES */
-.flex{
-  display: flex;
-}
-
-.flex-column{
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-row{
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-end{
-  justify-content: flex-end;
-}
-
-.spaceBetween{
-  justify-content: space-between;
-}
-.spaceAround{
-  justify-content: space-around;
-}
-
-.align-items-center{
-  align-items: center;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
 /* PLAN || CARDS  */
 
 .cards {
@@ -203,6 +204,7 @@ input.form:hover, input.form:focus, input.form:focus-visible{
   flex-direction: row;
   text-align: left;
   justify-content: space-between;
+  gap: 18px;
 }
 
 .cards h2, .add-on h2, .plan-selected h2 {
@@ -354,6 +356,8 @@ h2.price{
   margin-top: 40px;
   margin-left: 32px;
   text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav__step {
@@ -456,3 +460,56 @@ input:checked + .slider:before {
 
 .attribution { font-size: 11px; text-align: center; }
 .attribution a { color: hsl(228, 45%, 44%); }
+
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 375px) {
+  .container{
+    max-width: 375px;
+    flex-direction: column;
+    padding: 0px;
+  }
+
+  .navigation{
+    background-image: url("./assets/images/bg-sidebar-mobile.svg");
+    background-repeat: no-repeat;
+    width: 375px;
+    height: 172px;
+  }
+  
+  .nav{
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    gap: 16px;
+    width: 375px;
+    height: 172px;
+  }
+
+  .number{
+    margin-right: 0;
+  }
+
+  .nav .step {
+    display: none;
+  }
+
+  section.steps{
+    margin-top: 0rem;
+    background-color: var(--magnolia);
+    padding: 0 16px;
+  }
+  
+  section.step{
+    background-color: white;
+    max-width: 295px;
+    height: 500px;
+    margin-right: 0px;
+    padding: 32px 24px 32px 24px;
+  }
+
+  .p-description{
+    word-break: break-all;
+  }
+}

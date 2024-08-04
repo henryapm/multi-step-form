@@ -11,7 +11,7 @@ app.component('form-display', {
   /*html*/
   `
   <!-- <form @submit.prevent="onSubmit"> -->
-    <section class="steps spaceBetween" :class="{spaceAround: step === 4}">
+    <section class="steps" :class="{spaceAround: step === 4}">
     <!-- Personal Information -->
       <section v-show="step === 0" class="step personal-info">
         <div class="description">
