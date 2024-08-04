@@ -18,11 +18,16 @@
 }
 
 main{
-  height: 100vh;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--magnolia);
+}
+
+footer{
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .container{
@@ -479,8 +484,9 @@ input:checked + .slider:before {
   
   .nav{
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     justify-content: center;
+    margin-top: 32px;
     margin-left: 0;
     gap: 16px;
     width: 375px;
@@ -505,11 +511,9 @@ input:checked + .slider:before {
     background-color: white;
     max-width: 295px;
     height: 500px;
+    margin-top: -75px;
     margin-right: 0px;
     padding: 32px 24px 32px 24px;
-  }
-
-  .p-description{
-    word-break: break-all;
+    border-radius: 10px;
   }
 }
