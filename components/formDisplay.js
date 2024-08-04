@@ -38,8 +38,10 @@ app.component('form-display', {
             <input type="radio" name="plan" :id="plan.name" :checked="plan.isChecked" :value="{id: index, price: plan.price[typeOfSubscription]}" class="radio-plan" v-model="form.selectedPlan" />
             <label :for="plan.name" class="card card-input">
               <img :src="plan.img" :alt="plan.name">
-              <h2 class="plan">{{ plan.name }}</h2>
-              <h2 class="price">{{ formatPrice(plan.price[typeOfSubscription]) }}</h2>
+              <div class="plan-description">
+                <h2 class="plan">{{ plan.name }}</h2>
+                <h2 class="price">{{ formatPrice(plan.price[typeOfSubscription]) }}</h2>
+              </div>
             </label>
           </template>
         </section>
