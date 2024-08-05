@@ -18,21 +18,15 @@
 }
 
 main{
-  height: auto;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--magnolia);
 }
 
-footer{
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
 .container{
   width: 940px;
-  max-height: 600px;
   display: flex;
   border-radius: 10px;
   justify-content: space-between;
@@ -45,7 +39,14 @@ footer{
   background-image: url("./assets/images/bg-sidebar-desktop.svg");
   height: 568px;
   width: 274px;
+}
 
+.steps-and-buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-right: 4rem;
 }
 
 /* FLEX CLASSES */
@@ -78,7 +79,7 @@ footer{
   align-items: center;
 }
 
-.justify-content-center {
+.justifyContentCenter {
   justify-content: center;
 }
 
@@ -94,7 +95,6 @@ section.steps{
 section.step {
   display: flex;
   flex-direction: column;
-  margin-right: 6rem;
   min-width: 450px;
   max-width: 450px;
 }
@@ -112,10 +112,6 @@ section.step {
 .description .p-description{
   color: var(--cool-gray);
   font-size: 16px;
-}
-
-.step .mx-w{
-  max-width: 450px;
 }
 
 .center{
@@ -164,7 +160,6 @@ input.form:hover, input.form:focus, input.form:focus-visible{
 /* BUTTONS */
 
 .buttons{
-  margin-right: 6rem;
   margin-bottom: 2rem;
   display: flex;
 }
@@ -468,11 +463,24 @@ input:checked + .slider:before {
 
 
 /* MEDIA QUERIES */
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 375px) {
+  .wrapper{
+    max-width: 375px;
+    height: 100%;
+  }
+
   .container{
     max-width: 375px;
     flex-direction: column;
     padding: 0px;
+  }
+
+  .steps-and-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0rem;
+    margin-right: 0rem;
   }
 
   /* NAVIGATION */
@@ -507,7 +515,9 @@ input:checked + .slider:before {
     margin-top: 0rem;
     background-color: var(--magnolia);
     padding: 0 16px;
-    justify-content: center;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
   }
   
   section.step{
@@ -516,12 +526,17 @@ input:checked + .slider:before {
     min-width: 295px;
     margin-top: -75px;
     margin-right: 0px;
+    margin-bottom: 3rem;
     padding: 32px 24px 32px 24px;
     border-radius: 10px;
   }
 
   .personal-info input:last-child{
     margin-bottom: 0;
+  }
+
+  .step .title{
+    font-size: 25px;
   }
 
   /* CARDS */
@@ -538,4 +553,13 @@ input:checked + .slider:before {
   .cards img{
     margin: 0 14px 0 0;
   }
+
+  /* Buttons */
+  .buttons{
+    padding: 16px;
+    margin: 0;
+    background-color: white;
+    /* width: 343px; */
+  }
+
 }
