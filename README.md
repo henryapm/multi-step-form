@@ -40,8 +40,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [https://github.com/henryapm/multi-step-form](https://your-solution-url.com)
-- Live Site URL: [https://henryapm.github.io/multi-step-form/](https://your-live-site-url.com)
+- Solution URL: (https://github.com/henryapm/multi-step-form)
+- Live Site URL: (https://henryapm.github.io/multi-step-form/)
 
 ## My process
 
