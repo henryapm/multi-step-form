@@ -463,7 +463,7 @@ input:checked + .slider:before {
 
 
 /* MEDIA QUERIES */
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 395px) {
   .wrapper{
     max-width: 375px;
     height: 100%;
